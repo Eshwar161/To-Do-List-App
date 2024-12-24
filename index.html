@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-do List</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  body{
+    background-color: #3d3d3d;
+    font-family: 'Poppins', sans-serif;
+  }
+  .title{
+    color: #18d9cf;
+    text-shadow: 4px 4px 6px rgba(66, 68, 90, 1);
+    margin-bottom: 13px;
+  }
+  .input-card{
+    background-color: white;
+  }
+  .back {
+    text-align: center;
+    padding: 20px;
+  }
+  .input-box {
+    height: 35px;
+    width: 400px;
+    border-radius: 3px;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    padding-left: 15px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  }
+  #submit {
+    background-color: #11b823;
+    height: 33px;
+    width: 90px;
+    color: white;
+    cursor: pointer;
+    font-weight: 500;
+    border-radius: 2px;
+    border-width: 0px;
+    transition: background-color 0.3s ease;
+  }
+  #submit:hover {
+    background-color: #438c4b;
+  }
+  .dynamic-task {
+    position: relative;
+    width: 460px;
+    height: 40px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  }
+  .deletebutton {
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    cursor: pointer;
+    font-size: 24px;
+    border: none;
+    color: red;
+    background-color: transparent;
+  }
+  .tasks-alignment {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+  #tasks-container {
+    margin-top: 10px;
+  }
+  @media (max-width: 992px) {
+    .input-box {
+      width: 350px;
+    }
+    .dynamic-task {
+      width: 350px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .input-box {
+      width: 300px;
+    }
+    #submit {
+      width: 80px;
+    }
+    .dynamic-task {
+      width: 300px;
+    }
+    .title{
+      font-size: 32px;
+  }
+}
+
+  @media (max-width: 576px) {
+    .input-box {
+      width: 240px;
+      height: 32px;
+    }
+    #submit {
+      width: 70px;
+      height: 30px;
+      font-size: 12px;
+    }
+    .dynamic-task {
+      width: 240px;
+      height: 35px;
+      font-size: 13px;
+      padding: 5px;
+    }
+    .title{
+      font-size: 30px;
+  }
+  }
+  @media (max-width: 400px) {
+    .input-box {
+      width: 200px;
+      height: 30px;
+    }
+    #submit {
+      width: 65px;
+      height: 28px;
+      font-size: 12px;
+    }
+  .dynamic-task {
+    width: 200px;
+    height: 30px;
+    font-size: 12px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+  }
+    .title{
+      font-size: 28px;
+  }
+}
+</style>
+<body>
+  <div class="back">
+      <h1 class="title">To-Do List</h1>
+    <form id="my-form">
+        <input type="text" placeholder="Enter your task..." id="input-form" class="input-box">
+        <input type="submit" id="submit" value="Add Task">
+    </form>
+  </div>
+  <div class="tasks-alignment">
+    <div id="tasks-container"></div>
+  </div>
+  <script>
+    let form = document.getElementById("my-form");
+    let input = document.getElementById("input-form");
+    let container = document.getElementById("tasks-container");
+    form.addEventListener("submit", (event) => {   
+      event.preventDefault();
+      if (input.value.trim() === "") {
+        alert("Please enter a task");
+        return;
+      }
+      const divElement = document.createElement('div');
+      divElement.className = "dynamic-task";
+      divElement.textContent = input.value;
+      divElement.style.backgroundColor = "#f2f7f3";
+      divElement.style.fontSize = "15px";
+      divElement.style.padding = "11px";
+      divElement.style.margin = "22px";
+      divElement.style.borderRadius = "2px";
+      const button = document.createElement('button');
+      button.innerHTML = "<i class='fa'>&#xf014;</i>";
+      button.className = "deletebutton";
+      button.addEventListener("click", () => {
+        divElement.remove();
+      });
+      container.appendChild(divElement);  
+      divElement.appendChild(button);
+      input.value = "";
+    });
+  </script>
+</body>
+</html>
